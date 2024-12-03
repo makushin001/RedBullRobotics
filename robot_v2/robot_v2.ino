@@ -1000,7 +1000,7 @@ void loop() {
 
 
 void follow_line() {
-  const int PROPORTIONAL_GAIN = 30;
+  const int PROPORTIONAL_GAIN = 25;
   // Reading sensor values
   int s1 = digitalRead(ir1);  // Left most sensor
   int s2 = digitalRead(ir2);  // Left sensor
@@ -1010,17 +1010,27 @@ void follow_line() {
 
 
   int skewness = 0;
-  if(s1 == 0) skewness += -2;
-  if(s2 == 0) skewness += -1;
-  if(s3 == 0) skewness += 0;
-  if(s4 == 0) skewness += 1;
-  if(s5 == 0) skewness += 2;
+  if(s1 == 0){
+    skewness += -2.5;
+  }
+  if(s2 == 0){
+    skewness += -1;
+  }
+  if(s3 == 0){
+    skewness += 0;
+  }
+  if(s4 == 0){
+    skewness += 1;
+  }
+  if(s5 == 0){
+    skewness += 2.5;
+  }
 
-  int baseSpeed = 120;
-  int correction = skewness * PROPORTIONAL_GAIN; // Adjust the multiplier as needed
+  int base_speed = 120;
+  int adjustment_speed = skewness * PROPORTIONAL_GAIN; // Adjust the multiplier as needed
 
-  int left_speed = constrain(baseSpeed - correction, 0, 255);
-  int right_speed = constrain(baseSpeed + correction, 0, 255);
+  int left_speed = constrain(base_speed - adjustment_speed, 0, 255);
+  int right_speed = constrain(base_speed + adjustment_speed, 0, 255);
 
   move_forward(left_speed, right_speed);
   delay(50);

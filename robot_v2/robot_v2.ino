@@ -69,8 +69,8 @@ void loop() {
 }
 
 void follow_line() {
-  const int PROPORTIONAL_GAIN = 35;
-  // Reading sensor values (inverted if necessary)
+  const float PROPORTIONAL_GAIN = 35;
+
   int s1 = digitalRead(ir1);
   int s2 = digitalRead(ir2);
   int s3 = digitalRead(ir3);
@@ -78,11 +78,21 @@ void follow_line() {
   int s5 = digitalRead(ir5);
 
   int skewness = 0;
-  if (s1 == 0) skewness += -3;
-  if (s2 == 0) skewness += -1.5;
-  if (s3 == 0) skewness += 0;
-  if (s4 == 0) skewness += 1.5;
-  if (s5 == 0) skewness += 3;
+  if (s1 == 0){
+    skewness += -3;
+  }
+  if (s2 == 0){
+    skewness += -1.5;
+  }
+  if (s3 == 0){
+    skewness += 0;
+  }
+  if (s4 == 0){
+    skewness += 1.5;
+  }
+  if (s5 == 0){ 
+    skewness += 3;
+  }
 
   int base_speed = 120;
   int adjustment_speed = skewness * PROPORTIONAL_GAIN;
@@ -172,11 +182,22 @@ bool is_line_detected() {
   int s5 = digitalRead(ir5);
 
   int line_count = 0;
-  if (s1 == 0) line_count++;
-  if (s2 == 0) line_count++;
-  if (s3 == 0) line_count++;
-  if (s4 == 0) line_count++;
-  if (s5 == 0) line_count++;
+
+  if (s1 == 0){
+    line_count++;
+  }
+  if (s2 == 0){
+    line_count++;
+  }
+  if (s3 == 0){
+    line_count++;
+  }
+  if (s4 == 0){
+    line_count++;
+  }
+  if (s5 == 0){
+    line_count++;
+  }
 
   return (line_count >= 2); // Adjust the threshold as needed
 }
@@ -257,4 +278,24 @@ float single_distance_read() {
   return distance;
 }
 
+
+
+
+
+
+
+
+
+
+  // if (s1 == 0) line_count++;
+  // if (s2 == 0) line_count++;
+  // if (s3 == 0) line_count++;
+  // if (s4 == 0) line_count++;
+  // if (s5 == 0) line_count++;
+
+  // if (s1 == 0) skewness += -3;
+  // if (s2 == 0) skewness += -1.5;
+  // if (s3 == 0) skewness += 0;
+  // if (s4 == 0) skewness += 1.5;
+  // if (s5 == 0) skewness += 3;
 
